@@ -9,18 +9,11 @@
     <title>COVID-19</title>
     <link rel="stylesheet" href="covid-map/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="covid-map/assets/css/smoothproducts.css">
+<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css"> -->
+<!--     <link rel="stylesheet" href="covid-map/assets/css/smoothproducts.css"> -->
 
     <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="covid-map/style.css">  
+ 
     
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -155,7 +148,7 @@ footer {
   <result>
   <!--  covid results  -->
   
-  <iframe src="covid-map/results/results.html" style="height:600px;width:100%;border:none;" ></iframe> 
+<!--   <iframe src="covid-map/results/results.html" style="height:600px;width:100%;border:none;" ></iframe>  -->
    
 <!--  covid results  -->
   </result>
@@ -168,21 +161,21 @@ footer {
 To describe the evolution of the active infected population size distribution, we propose the population balance equation  
 \begin{equation}\label{model}
  \begin{array}{rcll}
- \displaystyle\frac{\partial I}{\partial t} + \dive(\bu I) +\divel(\bG I) +CI  &=& F  \quad  &{\rm  in }  \quad (0,T_\infty]\times\Omega_x\times\Omega_\ell \,,\\
- \bu\cdot \bn &=&g_n    &{\rm in }  \quad (0,T_\infty]\times\partial\Omega_{ x}\,, \\
+ \displaystyle\frac{\partial I}{\partial t} + \nabla_x\cdot({\bf u} I) +\nabla_\ell\cdot({\bf G} I) +CI  &=& F  \quad  &{\rm  in }  \quad (0,T_\infty]\times\Omega_x\times\Omega_\ell \,,\\
+ {\bf u}\cdot {\bf n} &=&g_n    &{\rm in }  \quad (0,T_\infty]\times\partial\Omega_{ x}\,, \\
  I(0,x,\ell) & =& I_0 &{\rm in }  \quad  \Omega_{x}\times\Omega_\ell \,,\\
- I(t,\mbx,\ell_v,0,\ell_a)  & =& B_{\rm nuc} \quad  &{\rm in }  \quad (0,T_\infty]\times\Omega_{x}\times L_v\times L_a \,,\\
- I(t,\mbx,0,\ell_d>0,\ell_a)  & =& 0 \quad  &{\rm in }  \quad (0,T_\infty]\times\Omega_{x}\times L_d\times L_a \,.
+ I(t,\mathbf{x},\ell_v,0,\ell_a)  & =& B_{\rm nuc} \quad  &{\rm in }  \quad (0,T_\infty]\times\Omega_{x}\times L_v\times L_a \,,\\
+ I(t,\mathbf{x},0,\ell_d>0,\ell_a)  & =& 0 \quad  &{\rm in }  \quad (0,T_\infty]\times\Omega_{x}\times L_d\times L_a \,.
 \end{array}
 \end{equation}
 
-Here, $\bu$ denotes the advection vector that quantifies the spatial movement of the population in a differential neighbourhood of $\Omega_{x}$, 
+Here, ${\bf u}$ denotes the advection vector that quantifies the spatial movement of the population in a differential neighbourhood of $\Omega_{x}$, 
 %$f(t,x,\ell_a)$ denotes the net addition of an infected population into $\Omega_{\rm x}$ from outside,
-$\bn$  is the outward unit normal vector to $\Omega_x$,
+${\bf n}$  is the outward unit normal vector to $\Omega_x$,
 $g_n$ is the flux that quantifies the net addition of an infected population into $\Omega_{\rm x}$ from outside (the spatial movement of the population across the border of the domain $\partial\Omega_{\rm x}$), and $I_0$ is the initial distribution of infected population.
 Further,
 $
-\bG = (G_{\ell_v}, G_{\ell_d}, G_{\ell_a})^T
+{\bf G} = (G_{\ell_v}, G_{\ell_d}, G_{\ell_a})^T
 $
 is the internal growth vector. Here, the Covid-19 infection severity growth rate in an infected population is defined by
 \begin{equation}
@@ -204,24 +197,24 @@ We next rate term
 \begin{equation}
  C =  C_R + C_{ID},
 \end{equation}
-where $C_R(t,\mbx,\ell_v,\ell_d,\ell_a)$ is a recovery rate function that quantifies the rate of recovery of the population from Covid-19, %$C_Q(t,\mbx,\ell_v,\ell_d,\ell_a)$ is a quarantine rate that quantifies the removal of people into a quarantine facility 
-and $C_{ID}(t,\mbx,\ell_v,\ell_d,\ell_a)$ is the Covid-19 death rate. 
-We also define a source term $F = C_T(t,\mbx,\ell_v,\ell_d,\ell_a)$ that quantifies the point-to-point movement of infected population (e.g., by air, train etc) within $\Omega_x$ not explained by $\bu$ and the source/sink of infected population travelled by air into $\Omega_x$ not explained by $g_n$.
-Moreover,  $C_T$ and $\bu$ need to be defined in such a way 
+where $C_R(t,\mathbf{x},\ell_v,\ell_d,\ell_a)$ is a recovery rate function that quantifies the rate of recovery of the population from Covid-19, %$C_Q(t,\mathbf{x},\ell_v,\ell_d,\ell_a)$ is a quarantine rate that quantifies the removal of people into a quarantine facility 
+and $C_{ID}(t,\mathbf{x},\ell_v,\ell_d,\ell_a)$ is the Covid-19 death rate. 
+We also define a source term $F = C_T(t,\mathbf{x},\ell_v,\ell_d,\ell_a)$ that quantifies the point-to-point movement of infected population (e.g., by air, train etc) within $\Omega_x$ not explained by ${\bf u}$ and the source/sink of infected population travelled by air into $\Omega_x$ not explained by $g_n$.
+Moreover,  $C_T$ and ${\bf u}$ need to be defined in such a way 
 that the net internal movement of infected population within $\Omega_{x}$ is conserved.
 Moreover $B_{\rm nuc}$ is the nucleation function that quantifies how a susceptible population becomes infected and it is defined by
 \begin{equation}
-  B_{\rm nuc}(t,\mbx,\ell_v,\ell_a) = B_{\rm nuc}\left(\ell_a, \sigma, H, S_D, N_S(t), N_Q(t) I\right), \qquad \forall ~\ell_v,\ell_a\in L_v\times L_a.
+  B_{\rm nuc}(t,\mathbf{x},\ell_v,\ell_a) = B_{\rm nuc}\left(\ell_a, \sigma, H, S_D, N_S(t), N_Q(t) I\right), \qquad \forall ~\ell_v,\ell_a\in L_v\times L_a.
 \end{equation}
 Here, $\sigma\in[0,1]$ is the interactivity index, $H\in[0,1]$ is the hygiene index, $S_D\in[0,1]$ is the social distancing index. 
 
 Finally, the total population $N(t)$ at a given time $t\in(0,T_\infty]$ is defined by
 \begin{align*}
   N(t) &= N_S(t) + N_R(t) + N_I(t) +N_Q(t) - N_{ID}(t) - N_D(t),    \\
- N_I(t) &= \int_{\Omega} I(t,\mbx,\ell_v,\ell_d,\ell_a)\,d\Omega\,,\\
- N_Q(t) &= \int_{\Omega} \gamma_Q(t,\mbx,\ell_v,\ell_d,\ell_a)I(t,\mbx,\ell_v,\ell_d,\ell_a) \,dx\,d\ell\,,\\
- N_{R}(t) &=  \int_{\Omega} C_RI(t,\mbx,\ell_v,\ell_d,\ell_a)\,d\Omega\ \,,\\
- N_{ID}(t) &=  \int_{\Omega} C_{ID}I(t,\mbx,\ell_v,\ell_d,\ell_a)\,d\Omega \,,\\
+ N_I(t) &= \int_{\Omega} I(t,\mathbf{x},\ell_v,\ell_d,\ell_a)\,d\Omega\,,\\
+ N_Q(t) &= \int_{\Omega} \gamma_Q(t,\mathbf{x},\ell_v,\ell_d,\ell_a)I(t,\mathbf{x},\ell_v,\ell_d,\ell_a) \,dx\,d\ell\,,\\
+ N_{R}(t) &=  \int_{\Omega} C_RI(t,\mathbf{x},\ell_v,\ell_d,\ell_a)\,d\Omega\ \,,\\
+ N_{ID}(t) &=  \int_{\Omega} C_{ID}I(t,\mathbf{x},\ell_v,\ell_d,\ell_a)\,d\Omega \,,\\
  N_S(t) &=  N(t) - [N_I(t)+N_Q(t)+N_R(t)-N_{ID}(t)-N_D(t)] \,.
 \end{align*}
 Here, $N_S$, $N_B$, $N_R$, $N_I$, $N_Q$ $N_{ID}$ and $N_D$ are the number of susceptible, newborn, recovered, asymptomatic/symptomatic infectives, qurantined, infective death and natural death populations, respectively.
